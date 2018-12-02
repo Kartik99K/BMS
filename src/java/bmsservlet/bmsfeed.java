@@ -6,19 +6,17 @@
 package bmsservlet;
 
 import java.io.*;
-
 import java.sql.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  *
  * @author KARTIK
  */
-public class bmslog extends HttpServlet {
+public class bmsfeed extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,34 +32,20 @@ public class bmslog extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             Class.forName("com.mysql.cj.jdbc.Driver");   
-           Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mydb?useSSL=false","root","iamkartik18");   
+           Class.forName("com.mysql.cj.jdbc.Driver");   
+           Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mydb?useSSL=false","root","iamkartik18");
            
-           Statement stmt = conn.createStatement();
-           ResultSet rs = stmt.executeQuery("SELECT* FROM bmslogin");
-        String s1 = request.getParameter("email");
-        String s2 = request.getParameter("pw");
-       int flag=0;
-           while(rs.next())
-           {
-               if(s1.equals(rs.getString("email")))
-               {
-                   if(s2.equals(rs.getString("pw")))
-                   {
-                       flag=1;
-                   }
-               }
-           }
-           if(flag==1)
-           {
-               response.sendRedirect("dashboard1.jsp");
-           }
-           else
-           {
-               out.println("Login unsuccessful");
-           }
+           PreparedStatement pstmt=conn.prepareStatement("insert into feedback values(?,?,?)");
+           String s1 = request.getParameter("user");
+           String s2 = request.getParameter("email");
+           String s3 = request.getParameter("feedback");
+           
+           pstmt.setString(1,s1);
+           pstmt.setString(2,s2);
+           pstmt.setString(3,s3);
+           pstmt.executeUpdate();
         }
-    catch(Exception e)
+        catch(Exception e)
     {
         System.out.println(e);
     }

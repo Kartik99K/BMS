@@ -8,6 +8,10 @@
         <servlet-name>bmslog</servlet-name>
         <servlet-class>bmsservlet.bmslog</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>bmsfeed</servlet-name>
+        <servlet-class>bmsservlet.bmsfeed</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>bmslogin</servlet-name>
         <url-pattern>/bmslogin</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>bmslog</servlet-name>
         <url-pattern>/bmslog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>bmsfeed</servlet-name>
+        <url-pattern>/bmsfeed</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
